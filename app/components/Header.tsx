@@ -28,7 +28,7 @@ const Header = () => {
            <li className='mx-5 text-[1.3rem] hover:scale-110 transition-all duration-[1s] text-white max-[963px]:mx-3 max-[488px]:text-[1.1rem] max-[488px]:mt-1 max-[488px]:mx-2'><IoMdHeart /></li>
         </ul>
         <ul className='flex mx-10 max-[965px]:mx-5 max-[770px]:hidden'>
-            <li className='mx-5 text-[1rem] font-sans font-[600] text-white hover:scale-105 transition-all duration-[1s] cursor-pointer max-[963px]:mx-3'>Home</li>
+            <Link href={"/"}><li className='mx-5 text-[1rem] font-sans font-[600] text-white hover:scale-105 transition-all duration-[1s] cursor-pointer max-[963px]:mx-3'>Home</li></Link>
             <li className='mx-5 text-[1rem] font-sans font-[600] text-white hover:scale-105 transition-all duration-[1s] cursor-pointer max-[963px]:mx-3'>About</li>
             <li className='mx-5 text-[1rem] font-sans font-[600] text-white hover:scale-105 transition-all duration-[1s] cursor-pointer max-[963px]:mx-3'>Contact</li>
             <li className='mx-5 text-[1rem] font-sans font-[600] text-white hover:scale-105 transition-all duration-[1s] cursor-pointer max-[963px]:mx-3'>Privacy Policy</li>
