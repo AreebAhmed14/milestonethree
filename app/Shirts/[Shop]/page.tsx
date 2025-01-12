@@ -10,22 +10,21 @@ const page = ({ params }: { params: Promise<{ Shop: string }> }) => {
 
   useEffect(() => {
     async function Datafetch() {
-      const { Shop } = await params;
       const datas: [] = await client.fetch('*[_type=="shirt"]');
+      const { Shop } = await params;
       const result = datas.find(
-        (item: any) => String(item.id) === String(Shop)
+        (item:any) => String(item.id) === String(Shop)
       );
       setRefine(result);
     }
     Datafetch();
   }, [params]);
 
-  // Log the state after it's updated
-  useEffect(() => {
-    if (refine) {
-      console.log(refine);
-    }
-  }, [refine]); 
+  // useEffect(() => {
+  //   if (refine) {
+  //     console.log(refine);
+  //   }
+  // }, [refine]); 
 
   if (!refine) {
     return <div className="text-white">Loading...</div>; // Show a loading state until data is available

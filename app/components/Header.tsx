@@ -37,7 +37,7 @@ const Header = () => {
         </div>
       </div>
         <div className={`${showMenu ? "block" : "hidden" } w-full h-[80vh] flex flex-col justify-start items-center bg-black`}>
-            <p className='text-[1.2rem] text-white font-[600] my-5 mt-10'>Home</p>
+            <Link href={"/"}><p className='text-[1.2rem] text-white font-[600] my-5 mt-10'>Home</p></Link>
             <p className='text-[1.2rem] text-white font-[600] my-5'>About</p>
             <p className='text-[1.2rem] text-white font-[600] my-5'>Contact</p>
             <p className='text-[1.2rem] text-white font-[600] my-5'>Privacy Policy</p>
