@@ -1,77 +1,52 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { client } from "@/sanity/lib/client";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const page = ({ params }: { params: Promise<{ Shop: string }> }) => {
   const [refine, setRefine] = useState<any>();
 
   useEffect(() => {
     async function Datafetch() {
-      const datas: [] = await client.fetch('*[_type=="shirt"]');
       const { Shop } = await params;
+      const datas = await client.fetch('*[_type=="shirt"]');
       const result = datas.find(
         (item:any) => String(item.id) === String(Shop)
       );
       setRefine(result);
     }
     Datafetch();
-  }, [params]);
-
-  // useEffect(() => {
-  //   if (refine) {
-  //     console.log(refine);
-  //   }
-  // }, [refine]); 
+  },[params]);
+  console.log(refine)
 
   if (!refine) {
-    return <div className="text-white">Loading...</div>; // Show a loading state until data is available
+    return <div className="text-center text-[36px] w-full h-screen font-[700] flex justify-center items-center"><div className="w-[80px] h-[80px] border-[10px] border-gray-300 border-b-blue-500 rounded-full animate-spin"></div></div>
+    
   }
 
   return (
     <>
-      <div className="w-full h-[602px] border-b-[2px] border-[#9F9F9F] flex justify-center max-[850px]:flex-col max-[850px]:h-auto max-[850px]:items-center">
-        <div className="w-[480px] h-[500px] bg-[#FFF9E5] mt-[3rem] max-[1136px]:w-[400px] max-[1136px]:h-[500px] max-[990px]:w-[300px] max-[850px]:h-auto max-[850px]:w-[600px] max-[600px]:w-[500px] max-[512px]:w-[400px] max-[420px]:w-[300px] max-[337px]:w-[300px] rounded-lg overflow-hidden shadow-inner shadow-gray-200">
-          <Image
-            src={urlFor(refine.image).url()}
-            alt=""
-            width={950}
-            height={950}
-            className="w-full h-full"
-          />
-        </div>
-        <div className="w-[606px] h-[530px] ml-[3rem] mt-[5rem] flex flex-col justify-start max-[1136px]:w-[550px] max-[990px]:w-[500px] max-[850px]:ml-0 max-[512px]:w-[400px] max-[420px]:w-[300px] max-[337px]:w-[280px] max-[550px]:mt-[2rem] max-[850px]:h-auto">
-          <p className="text-[42px] mt-3 font-[500] max-[420px]:text-[35px] text-gray-200">
-            {refine.title}
-          </p>
-          <p className="text-[24px] mt-3 text-[#9F9F9F] font-[500]">
-            Price: {refine.price} pkr
-          </p>
-          <p className="text-[17px] mt-3 font-[500] text-white">
-            {refine.description}
-          </p>
-          <p className="text-[16px] mt-3 text-[#9F9F9F] font-[500]">Rating: </p>
-          <div className="text-[20px] text-yellow-500 font-[600]">
-            {refine.rating}
-          </div>
-          <div className="w-full h-[65px]  mt-10 flex justify-start items-center max-[450px]:mt-5 max-[450px]:my-10">
-            <Link href={"/Cart"}><button className="w-[200px] h-[60px] font-[600] bg-white hover:scale-105 cursor-pointer text-[18px] border-[1px] text-black rounded-md flex justify-center items-center max-[420px]:w-[100px] max-[420px]:text-[16px] max-[420px]:h-[50px]">
-              Add to Cart
-            </button>
-            </Link>
-          </div>
-        </div>
+    <div className="w-full flex justify-start items-center max-[1000px]:justify-between max-[700px]:flex-col">
+      <div className="w-[30%] h-[25rem] mx-5 max-[1050px]:w-[25rem] my-5 max-[450px]:w-[20rem] max-[370px]:w-[18rem] max-[370px]:h-[20rem] overflow-hidden rounded-lg">
+        <Image
+          src={urlFor(refine.image).url()}
+          alt="Product"
+          width={300}
+          height={300}
+          className="w-full h-full"
+        />
       </div>
-      <div className="w-full flex justify-center flex-col items-center mt-[2rem]">
-        <p className="text-[24px] font-[600] text-white">Description</p>
-        <center>
-          <p className="text-[#9F9F9F] mt-5 p-4 text-[16px]">
-            {refine.explaination}
-          </p>
-        </center>
+      <div className="w-[60%] mt-10 h-auto my-4 mx-5 max-[700px]:w-[90%] max-[370px]:h-auto max-[370px]:my-5">
+          <p className="text-2xl uppercase font-[700] m-4 max-[890px]:text-[22px] max-[370px]:m-2 max-[370px]:my-4 text-white">{refine.title}</p>
+          <p className="text-xl font-[600] m-4 max-[370px]:m-2 max-[370px]:my-4 text-white">Price : {refine.price} $</p>
+          <p className="text-xl font-[600] m-4 max-[370px]:m-2 max-[370px]:my-4 text-white">Rating : <span className="text-yellow-400">{refine.rating}</span></p>
+          <p className="text-[17px] font-[600] m-5 max-[370px]:m-2 max-[370px]:my-4 max-[400px]:text-[14px] text-white">{refine.description}</p>
+          <Link href={"/Cart"}><button className="bg-blue-500 px-3 py-2 rounded-lg mx-4 text-white hover:scale-95 transition-all my-5">Add to Cart</button></Link>
       </div>
+    </div>
+      
     </>
   );
 };
